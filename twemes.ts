@@ -3,7 +3,7 @@ import plugin from "tailwindcss/plugin";
 
 function addTacksToRecordKeys<K extends string, V>(record: Record<K, V>) {
   return Object.fromEntries(
-    Object.entries(record).map(([key, value]) => [`--${key}`, value]),
+    Object.entries(record).map(([key, value]) => [`--${key}`, value])
   ) as Record<`--${K}`, V>;
 }
 
@@ -11,7 +11,7 @@ export type Config = ReturnType<typeof configThemes>;
 export const configThemes = <
   const Colors extends string,
   const Themes extends string,
-  const Config extends Themes,
+  const Config extends Themes
 >(rawConfig?: {
   themes?: Record<Themes, Record<Colors, string>>;
   options?: {
@@ -27,12 +27,13 @@ export const configThemes = <
     for (const colorName in themes[themeName]) {
       try {
         themes[themeName][colorName] = Color(themes[themeName][colorName])
-          .hsl()
-          .toString();
+          .rgb()
+          .array()
+          .join(" ");
       } catch (e) {
         console.error(
           "\nTailwind-themes: There was an error parsing a color value in your config!\n\n",
-          e,
+          e
         );
       }
     }
@@ -69,7 +70,7 @@ Tailwind-themes: \`config.options.asRoot\` is set but not found in
         }
 
         themesArray = themesArray.filter(
-          ([name, _colors]) => name === config.options?.asRoot,
+          ([name, _colors]) => name === config.options?.asRoot
         );
         addBase({
           [":root"]: addTacksToRecordKeys(root),
@@ -87,7 +88,7 @@ Tailwind-themes: \`config.options.prefersLight\` is set but not found in
         }
 
         themesArray = themesArray.filter(
-          ([name, _colors]) => name === config.options?.prefersLight,
+          ([name, _colors]) => name === config.options?.prefersLight
         );
         addBase({
           ["@media (prefers-color-scheme: light)"]: {
@@ -107,7 +108,7 @@ Tailwind-themes: \`config.options.prefersDrak\` is set but not found in
         }
 
         themesArray = themesArray.filter(
-          ([name, _colors]) => name === config.options?.prefersDark,
+          ([name, _colors]) => name === config.options?.prefersDark
         );
         addBase({
           ["@media (prefers-color-scheme: dark)"]: {
@@ -140,8 +141,8 @@ Tailwind-themes: \`config.options.prefersDrak\` is set but not found in
     const colors = Object.fromEntries(
       Object.keys(firstTheme).map((colorName) => [
         colorName,
-        `var(--${colorName})`,
-      ]),
+        `rgb(var(--${colorName}) / <alpha-value>)`,
+      ])
     );
 
     return {
@@ -151,5 +152,5 @@ Tailwind-themes: \`config.options.prefersDrak\` is set but not found in
         },
       },
     };
-  },
+  }
 );

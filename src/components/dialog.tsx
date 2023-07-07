@@ -11,6 +11,11 @@ type WithChildren<T extends object = object> = T & {
   children: ReactNode;
 };
 
+const Dialog = RadixDialog.Root;
+const DialogTrigger = RadixDialog.Trigger;
+
+const DialogCloseButton = RadixDialog.Close;
+
 const DialogContent = forwardRef<
   ElementRef<typeof RadixDialog.Content>,
   ComponentPropsWithoutRef<typeof RadixDialog.Content> & {
@@ -36,8 +41,7 @@ const DialogContent = forwardRef<
     </RadixDialog.Portal>
   );
 });
-
-DialogContent.displayName = "DialogContent";
+DialogContent.displayName = RadixDialog.Content.displayName;
 
 const DialogHeader = ({ children }: WithChildren) => {
   return (
@@ -71,14 +75,13 @@ const DialogFooter = ({ children }: WithChildren) => {
   );
 };
 
-const Dialog = {
-  Root: RadixDialog.Root,
-  Trigger: RadixDialog.Trigger,
-  Content: DialogContent,
-  Header: DialogHeader,
-  Title: DialogTitle,
-  Description: DialogDescription,
-  Footer: DialogFooter,
+export {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogCloseButton,
 };
-
-export default Dialog;

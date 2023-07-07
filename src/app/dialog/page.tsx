@@ -7,7 +7,14 @@ import {
   inputVariants,
   labelVariants,
 } from "@/components/input";
-import Dialog from "@/components/Dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/dialog";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -61,18 +68,18 @@ function UserDialog({
   }, [isSubmitSuccessful, reset]);
 
   return (
-    <Dialog.Root open={open} onOpenChange={onOpenChange} modal>
+    <Dialog open={open} onOpenChange={onOpenChange} modal>
       {/* <Dialog.Trigger asChild> */}
       {/*   <button className={buttonVariants()}>Edit profile</button> */}
       {/* </Dialog.Trigger> */}
 
-      <Dialog.Content showXButton={false}>
-        <Dialog.Header>
-          <Dialog.Title>Edit profile</Dialog.Title>
-          <Dialog.Description>
+      <DialogContent showXButton={false}>
+        <DialogHeader>
+          <DialogTitle>Edit profile</DialogTitle>
+          <DialogDescription>
             Make changes to your profile here. Click save when you&apos;re done.
-          </Dialog.Description>
-        </Dialog.Header>
+          </DialogDescription>
+        </DialogHeader>
 
         <form
           onSubmit={handleSubmit((data) => {
@@ -126,7 +133,7 @@ function UserDialog({
             </fieldset>
           </div>
 
-          <Dialog.Footer>
+          <DialogFooter>
             <button
               type="button"
               className={buttonVariants({ variant: "outline" })}
@@ -140,10 +147,10 @@ function UserDialog({
             <button type="submit" className={buttonVariants()}>
               Save Changes
             </button>
-          </Dialog.Footer>
+          </DialogFooter>
         </form>
-      </Dialog.Content>
-    </Dialog.Root>
+      </DialogContent>
+    </Dialog>
   );
 }
 

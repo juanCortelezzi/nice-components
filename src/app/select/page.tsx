@@ -27,13 +27,7 @@ export default function SelectPage() {
     []
   ) satisfies Inputs;
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    control,
-    formState: { errors, isSubmitSuccessful },
-  } = useForm<Inputs, unknown, FormData>({
+  const { handleSubmit, control } = useForm<Inputs, unknown, FormData>({
     resolver: zodResolver(resolver),
     defaultValues,
   });
@@ -59,7 +53,7 @@ export default function SelectPage() {
               </SelectContent>
             </Select>
           )}
-        ></Controller>
+        />
         <button type="submit" className={buttonVariants({ className: "mt-8" })}>
           Sumbittear
         </button>
